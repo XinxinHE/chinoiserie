@@ -1,0 +1,11 @@
+{
+  "name": "conFusion",
+  "private": true,
+  "devDependencies": {},
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+    "angular-mocks": "^1.5.9"
+  }
+}
