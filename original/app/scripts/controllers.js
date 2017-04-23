@@ -1,7 +1,11 @@
 'use strict';
 
 angular.module('confusionApp')
-
+        .controller('NavController', ['$scope', '$location', function($scope, $location) {
+           $scope.isActive = function(viewLocation) {
+             return viewLocation === $location.path();
+           }
+        }])
         .controller('MenuController', ['$scope', 'menuFactory', '$timeout', function($scope, menuFactory, $timeout) {
 
             $scope.tab = 1;
@@ -147,8 +151,9 @@ angular.module('confusionApp')
                 $scope.mycomment.date = new Date().toISOString();
 
                 $scope.dish.comments.push($scope.mycomment);
-
-                menuFactory.getDishes().update({id:$scope.dish.id}, $scope.dish);
+                console.log($scope.dish.id);
+                console.log($scope.dish);
+                menuFactory.getDishes().child($scope.dish.id.toString()).update(angular.fromJson(angular.toJson($scope.dish)));
 
                 $scope.commentForm.$setPristine();
 
