@@ -190,6 +190,20 @@ angular.module('confusionApp')
                 }, 0);
               }
             );
+
+            corporateFactory.getLeaders().child('3').on("value",
+              function(snapshot) {
+                $timeout(function() {
+                  $scope.executiveChief = snapshot.val();
+                  $scope.showLeader = true;
+                }, 0);
+              },
+              function(errorObject) {
+                $timeout(function() {
+                  $scope.message = "The read failed: " + errorObject.code;
+                }, 0);
+              }
+            );
             //
             // corporateFactory.getLeaders().get({id:3})
             // .$promise.then(
@@ -205,11 +219,24 @@ angular.module('confusionApp')
 
         }])
 
-        .controller('AboutController', ['$scope', 'corporateFactory', function($scope, corporateFactory){
+        .controller('AboutController', ['$scope', 'corporateFactory', '$timeout', function($scope, corporateFactory, $timeout){
 
             $scope.message = "Loading...";
             $scope.showLeader = false;
 
+            corporateFactory.getLeaders().on("value",
+              function(snapshot) {
+                $timeout(function() {
+                  $scope.leaders = snapshot.val();
+                  $scope.showLeader = true;
+                }, 0);
+              },
+              function(errorObject) {
+                $timeout(function () {
+                  $scope.message = "The read failed: " + errorObject.code;
+                }, 0);
+              }
+            );
             // corporateFactory.getLeaders().query(
             //   function(response){
             //     $scope.leaders = response;
@@ -222,6 +249,4 @@ angular.module('confusionApp')
             // );
         }])
         // implement the IndexController and About Controller here
-
-
 ;

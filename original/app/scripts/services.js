@@ -9,24 +9,31 @@ angular.module('confusionApp')
             storageBucket: "chinoiserie-b2b07.appspot.com",
             messagingSenderId: "566054299112"
         })
-        .service('menuFactory', ['$resource', 'config', function($resource, config) {
+        .service('menuFactory', ['config', function(config) {
 
           // Initialize firebase
-                firebase.initializeApp(config);
+          // Check if firebase app has already initialized
+          if (!firebase.apps.length) {
+            firebase.initializeApp(config);
+          }
 
-                this.getDishes = function(){
-                  // Get a data reference to dishes data
-                  return firebase.database().ref('dishes');
-                  // return $resource(baseURL + "dishes/:id", null, {'update':{method:'PUT'}});
-                };
+          this.getDishes = function(){
+            // Get a data reference to dishes data
+            return firebase.database().ref('dishes');
+            // return $resource(baseURL + "dishes/:id", null, {'update':{method:'PUT'}});
+          };
 
-                this.getPromotion = function(){
-                  return firebase.database().ref('promotions');
-                  // return $resource(baseURL + "promotions/:id", null, {'update':{method:'PUT'}});
-                }
+          this.getPromotion = function(){
+            return firebase.database().ref('promotions');
+            // return $resource(baseURL + "promotions/:id", null, {'update':{method:'PUT'}});
+          }
         }])
 
-        .factory('corporateFactory', ['$resource', 'config', function($resource, config) {
+        .factory('corporateFactory', ['config', function(config) {
+
+            if (!firebase.apps.length) {
+              firebase.initializeApp(config);
+            }
 
             var corpfac = {};
 
@@ -39,7 +46,11 @@ angular.module('confusionApp')
 
         }])
 
-        .factory('feedbackFactory', ['$resource', 'baseURL', function($resource, baseURL){
+        .factory('feedbackFactory', ['config', function(config){
+
+            if (!firebase.apps.length) {
+              firebase.initializeApp(config);
+            }
 
             var feedbackfac = {};
 
