@@ -1,5 +1,5 @@
+(function() {
 'use strict';
-
 angular.module('confusionApp')
         .constant("config", {
             apiKey: "AIzaSyAsklPoeRGajCk4Hf93jxLlSmqdRQ5VLEg",
@@ -26,7 +26,7 @@ angular.module('confusionApp')
           this.getPromotion = function(){
             return firebase.database().ref('promotions');
             // return $resource(baseURL + "promotions/:id", null, {'update':{method:'PUT'}});
-          }
+          };
         }])
 
         .factory('corporateFactory', ['config', function(config) {
@@ -40,7 +40,7 @@ angular.module('confusionApp')
             corpfac.getLeaders = function(){
               return firebase.database().ref('leadership');
               // return $resource(baseURL + "leadership/:id", null, {'update':{method:'PUT'}});
-            }
+            };
 
             return corpfac;
 
@@ -57,9 +57,8 @@ angular.module('confusionApp')
             feedbackfac.getFeedback = function(){
               return firebase.database().ref('feedback');
               //return $resource(baseURL + 'feedback', null, {'update':{method:'POST'}});
-            }
+            };
 
             return feedbackfac;
-        }])
-
-;
+        }]);
+}());

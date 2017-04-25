@@ -100,3 +100,9 @@ body {
 strong {
   margin-right:40px;
 }
+
+.label {
+  display: inline-block;
+  font-size: 60%;
+  vertical-align: middle; 
+}

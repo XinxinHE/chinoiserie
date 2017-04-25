@@ -1,5 +1,5 @@
-'use strict';
 
+'use strict';
 angular.module('confusionApp', ['ui.router', 'ngResource', 'firebase'])
 .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
@@ -67,5 +67,5 @@ angular.module('confusionApp', ['ui.router', 'ngResource', 'firebase'])
             });
 
         $urlRouterProvider.otherwise('/');
-    })
-;
+    });
+

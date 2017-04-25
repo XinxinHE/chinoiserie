@@ -6,6 +6,8 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "angular-mocks": "^1.5.9"
+    "angular-mocks": "^1.5.9",
+    "firebase": "^3.8.0",
+    "angularfire": "^2.3.0"
   }
 }

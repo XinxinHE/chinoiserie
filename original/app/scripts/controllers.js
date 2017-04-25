@@ -1,16 +1,16 @@
+(function() {
 'use strict';
-
 angular.module('confusionApp')
         .controller('NavController', ['$scope', '$location', function($scope, $location) {
            $scope.isActive = function(viewLocation) {
              return viewLocation === $location.path();
-           }
+           };
         }])
         .controller('MenuController', ['$scope', 'menuFactory', '$timeout', function($scope, menuFactory, $timeout) {
 
             $scope.tab = 1;
             $scope.filtText = '';
-            $scope.showDetails = false;
+            $scope.showDetails = true;
 
             $scope.showMenu = false;
             $scope.message = "Loading...";
@@ -83,7 +83,7 @@ angular.module('confusionApp')
 
             $scope.sendFeedback = function() {
 
-                if ($scope.feedback.agree && ($scope.feedback.mychannel == "")) {
+                if ($scope.feedback.agree && ($scope.feedback.mychannel === "")) {
                     $scope.invalidChannelSelection = true;
                 }
                 else {
@@ -138,7 +138,7 @@ angular.module('confusionApp')
                       return $scope.filterKey;
                   else
                       return "";
-              }
+              };
 
         }])
 
@@ -149,16 +149,17 @@ angular.module('confusionApp')
             $scope.submitComment = function () {
 
                 $scope.mycomment.date = new Date().toISOString();
-
+                if (typeof $scope.dish.comments == 'undefined') {
+                  $scope.dish.comments = [];
+                }
                 $scope.dish.comments.push($scope.mycomment);
-                console.log($scope.dish.id);
-                console.log($scope.dish);
+
                 menuFactory.getDishes().child($scope.dish.id.toString()).update(angular.fromJson(angular.toJson($scope.dish)));
 
                 $scope.commentForm.$setPristine();
 
                 $scope.mycomment = {rating:5, comment:"", author:"", date:""};
-            }
+            };
         }])
 
         .controller('IndexController', ['$scope', 'menuFactory', 'corporateFactory', '$timeout', function($scope, menuFactory, corporateFactory, $timeout){
@@ -233,6 +234,7 @@ angular.module('confusionApp')
               function(snapshot) {
                 $timeout(function() {
                   $scope.leaders = snapshot.val();
+                  console.log($scope.leaders);
                   $scope.showLeader = true;
                 }, 0);
               },
@@ -252,6 +254,5 @@ angular.module('confusionApp')
             //     $scope.message = "Error" + response.status + " " + response.statusText;
             //   }
             // );
-        }])
-        // implement the IndexController and About Controller here
-;
+        }]);
+}());
